@@ -17,25 +17,50 @@
     <link rel="icon" type="image/png" sizes="32x32" href="Icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="Icons/favicon-16x16.png">
     -->
-    
-
-
-    
+        
     <link rel="icon" type="image/x-icon>" href="favicon.ico">   
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 
-
-
     <!--for android-->
     <link rel="manifest" href="Icons/site.webmanifest" />
-    <title>Launch from Home screen demo</title>
+    <title>Launch from Home screen HW DEMO</title>
 
     <script src="Practical15.js" defer></script>
 </head>
 <body>
     <h1>Hong Wei Practical 15</h1>    
     <button id="FullscreenBtn">Toggle Fullscreen</button>
+
+    <!--Optional Challenge Attempt,with help from chatgpt-->
+    <script>
+     // Function to check if the app is running in standalone mode (added to home screen)
+     function isStandalone()
+     {
+        return window.matchMedia('(display-mode: standalone)').matches ||
+            window.navigator.standalone || //For IOS devices
+            document.referrer.includes('andriod-app//'); // For Andriod devices
+     }   
+
+    // Function to prompt the user to add the app to the home screen
+    function promptToAddToHomeScreen() {
+        alert("To add this app to your home screen, tap the share button and then select 'Add to Home Screen'.");
+    }
+
+    //Function to be called on page load
+    function onLoaded(){
+        //Check if the app is running in standalone mode
+        if(!isStandalone())
+        {
+            promptToAddToHomeScreen();
+        }
+        else{
+            alert("Running on StandAlone!");
+        }
+    }
+    // Event listener to call the onLoaded function when the page is fully loaded
+    document.addEventListener('DOMContentLoaded',onLoaded);
+    </script>
 </body>
 </html>
