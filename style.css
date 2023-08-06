@@ -1,3 +1,241 @@
-body{
-    background-color: greenyellow;
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+/* Smooth scrolling behavior, when clicking on the links.*/
+html {
+    scroll-behavior: smooth;
+}
+
+/* Global Styles */
+body {
+    background-color: wheat;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    display: block;
+    font-size: xx-large;
+    font-weight: bold;
+    color: black;
+    text-align: left; /* Align text to the left */
+}
+
+.Header {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    padding: 10px;
+    background-color: #FE9C54; 
+    color: whitesmoke;
+    align-items: center;
+}
+
+.Header img{
+    justify-self: center;
+}
+
+.title{
+    justify-self: left;
+}
+
+.navigation {
+    margin: 0;
+    padding: 0;
+    grid-column: 1 / 3;
+    display: flex; /* Change to display: flex */
+    justify-content: center; /* Center the links horizontally */
+    align-items: center; /* Center the links vertically */
+    overflow: hidden;
+    border: 1px solid black;
+}
+
+.navigation ul {
+    list-style: none;
+    display: flex; /* Make the list items flex containers */
+    padding: 0;
+}
+
+.navigation li {
+    margin: 0;
+    padding: 0;
+}
+
+.navigation a {
+    padding: 10px 15px; /* Add padding for spacing */
+    color: whitesmoke;
+    border: 2px solid black;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+/* Images */
+img {
+    object-fit: contain;
+    max-width: 100%;
+    height: auto;
+    width: 150px;
+    position: relative;
+}
+
+/* Table Tennis Logo */
+#TableTennisLogo {
+    border: 2px solid goldenrod;
+    margin: 0;
+    padding: 0;
+    justify-self: left;
+    max-width: 100%;
+    height: auto;
+}
+
+/*Hide the menuIcon, only show in mobile*/
+.menu-icon{
+    display: none; 
+}
+
+/*MenuIcon in header*/
+#hamIcon
+{
+    margin: 0;
+    padding: 0;
+    justify-self: left;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Content Section Styles */
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.content-item {
+    display: flex;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    cursor: pointer; /* Add cursor pointer for clickable items */
+    flex-direction: row; /* Horizontal layout by default */
+}
+
+/* Style for the image container */
+.content-image {
+    max-width: 100%; /* Set the maximum width of the image container */
+    max-height: 100%; /* Set the maximum height of the image container */
+    cursor: pointer;
+    flex-grow: 1; /* Allow the image to grow within its container */
+    object-fit: fill; /* Fill the container without maintaining aspect ratio */
+}
+
+/* Style for the image itself*/
+.content-item img {
+    max-height: 100%; /* Set the maximum height of the image within the container */
+    width: auto; /* Allow the width to adjust to maintain aspect ratio */
+    cursor: pointer;
+    flex-grow: 1; /* Allow the image to grow within its container */
+    object-fit: fill; /* Maintain aspect ratio while fitting within the container */
+}
+
+.description {
+    padding-top: 10px;
+    border: 2px solid black;
+    background-color: lightyellow; 
+}
+
+/* CSS to set different background colors for content-image and description containers */
+#Section_History {
+    background-color: lightblue; 
+}
+
+#Section_Rules {
+    background-color: lightgreen; 
+}
+
+#Section_Health {
+    background-color: lightpink; 
+}
+
+/*QRCODE*/
+#QRCODE {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color: burlywood;
+}
+#qr-code {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.references {
+    flex-basis: 100%;
+    border-top: 2px solid #3e2906;
+    background-color: #c9a187;
+    row-gap: 1.5px;;
+    padding: 5px;
+}
+
+.references a {
+    text-decoration: none;
+    color: #f6f5e1;
+    font-size: medium;
+}
+
+.references a:hover {
+    color: #3e2906;
+}
+
+.references a:active {
+    color: #674834;
+}
+
+
+nav ul li{display:inline;}
+
+/*Responsive*/
+#hamIcon{display: none;}
+@media screen and (max-width: 800px) {
+    body { background-color: blueviolet;} /*To know breakpoint*/
+    img {width: 50%;}
+    
+
+    /*Turn off the links in mobile view*/
+    .navigation{display: none;}
+    /*Show menu in mobile version*/
+    .menu-icon{
+        display: inline-block;
+    }
+    .menu-icon.active + .navigation{
+        display: block;
+    }
+
+    /* Vertical layout for mobile */
+    .content-item {
+        flex-direction: column;
+        /*align-items: flex-start;*/
+    }
+
+    .content-image img {
+        max-width: 100%;
+        width: 75%;
+        height: auto;
+        order: 1; /* Place image before description in desktop view */
+    }
+
+    .description {
+        padding-left: 20px;
+        flex: 1;
+        order: 2; /* Place description after image in desktop view */
+    }
+
+    nav ul li{display: block;} /*Make a menu items vertical*/
+    #hamIcon{display: block;} /*unhide menuIcon*/
+    nav ul{display: none;} /*hide the menu item list*/
+
 }
