@@ -1,156 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table Tennis</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <!--Header, Top NavBar-->
-    <div class="Header">
-        <img src="Image/TableTennisLogo.png" alt="TableTennisLogo" id="TableTennisLogo">
-        <!--Img Credit: https://in.pinterest.com/pin/premium-vector--780530179169331783/-->
-        <h1 class="title">Table Tennis</h1>
-        <img src="Image/menuIcon.png" alt="menuIcon" id="hamIcon" class="menu-icon">
-        <!--Img Credit:https://www.freeiconspng.com/images/menu-icon-->
-        <!--Desktop only, same page navigataion-->
-        <div class="navigation" id="menuLinks">
-            <ul>
-                <!--Jumps to content-->
-                <li><a href="#Section_History">History of Table Tennis</a></li>
-                <li><a href="#Section_Rules">Rules of Table Tennis</a></li>
-                <li><a href="#Section_Health">Health & Benefits</a></li>
-            </ul>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | SpaceShooter</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body>
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" width=960 height=600></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
         </div>
+      </div>
+      <div id="unity-warning"> </div>
+      <div id="unity-footer">
+        <div id="unity-webgl-logo"></div>
+        <div id="unity-fullscreen-button"></div>
+        <div id="unity-build-title">SpaceShooter</div>
+      </div>
     </div>
+    <script>
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var warningBanner = document.querySelector("#unity-warning");
 
+      // Shows a temporary message banner/ribbon for a few seconds, or
+      // a permanent error message on top of the canvas if type=='error'.
+      // If type=='warning', a yellow highlight color is used.
+      // Modify or remove this function to customize the visually presented
+      // way that non-critical warnings and error messages are presented to the
+      // user.
+      function unityShowBanner(msg, type) {
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
 
-    <div class="content">
-        <!--History of Table Tennis-->
-        <div class="content-item">
-            <div class="content-image" id="Section_History">
-                <img src="Image/TableTennisHistory.png" alt="HistoryImage">
-                <!--Credit: https://www.99sportz.com/ping-pong-history/-->
-            </div>
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/Webbuild.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/Webbuild.data",
+        frameworkUrl: buildUrl + "/Webbuild.framework.js",
+        codeUrl: buildUrl + "/Webbuild.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "HongWei",
+        productName: "SpaceShooter",
+        productVersion: "1.0",
+        showBanner: unityShowBanner,
+      };
 
-            <!--Content Text-->
-            <div class="description" id="di1">
-                <h3>History of Table Tennis</h3>
-                <p>It was in England, in the late 19th century, that table tennis made its appearance. 
-                Taking inspiration from lawn tennis, the first players belonged to middle-class Victorian society.</p>
-                <br>
-                <p>The first game would have been played using a champagne cork as a ball, cigar boxes as bats and books for the net. 
-                At that point, table tennis was seen as a mere distraction for the wealthy classes.</p>
-                <p>In 1890, Englishman David Foster, attracted by its wide appeal, introduced the first game of tennis on a table. 
-                In 1897, the first national championships were organised in Hungary.</p>
-                <br>
-                <p>Following a trip to the United States, in 1901 James Gibb brought back the first celluloid ball, 
-                which was a lot lighter than the rubber balls. A year later, in 1902, E.C. Gould, a British enthusiast of the game, 
-                introduced the first bats covered in rubber and rubberized pimples. It was game on for the history of table tennis!</p>
-            </div>
-        </div>
+      // By default Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
 
-        <!--Rules of Table Tennis-->
-        <div class="content-item">
-            <div class="content-image" id="Section_Rules">
-                <img src="Image/RulesTableTennis.png" alt="Rules">
-                <!--Credit: https://www.rookieroad.com/table-tennis/what-are-the-rules/-->
-                <h3>Rules of Table Tennis</h3>
-            </div>
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
 
-            <div class="description" id="di2"> 
-                <h4>Game Rules</h4>
-                <p>A Game is played to 11 points. A Game must be won by two points. A Match is generally the best three of five Games.</p>
-                <br>
-                <h4>Serving Rules</h4>
-                <p>Each side of the table alternates serving two points at a time. EXCEPTION: After tied 10-10 (“deuce”), service alternates at every point. Can you lose on a serve in ping pong? Yes! There is no separate rule for serving on Game Point.</p>
-                <p>How do you serve the ball in ping pong? Hold the ball in your open palm, behind your end of the table. Toss at least 6” straight up, and strike it on the way down. It must hit your side of the table and then the other side. NOTE: Once the ball leaves the server’s hand it is in play, and so counts as the receiver’s point if the ball is missed or mis-hit.</p>
-                <p>There is no restriction on where the ball lands on your side or your opponent’s side of the table. It can bounce two or more times on your opponent’s side (if so, that’s your point), bounce over the side, or even hit the edge.</p>
-                <p>The serve must bounce in the server’s right court, and receiver’s right court (NOTE: landing on center line is fair). Doubles partners switch places after their team serves twice.</p>
-                <p>Can the ball hit the net in ping pong? Yes, during a RALLY, if it touches the top of the net and then otherwise lands as a legitimate hit. BUT not when serving. If a served ball hits the net on the way over and otherwise legally bounces in play, it’s a “let” serve and is done over. There is no limit on how many times this can happen.</p>
-                <p>Doubles partners must alternate hitting balls in a rally, no matter where the ball lands on the table.</p>
-                <br>
-                <h4>Playing Rules</h4>
-                <p>Can you hit the ball before it bounces in ping pong? No. In regular tennis you may “volley” the ball (hitting the ball before it bounces on your side of the net). But in table tennis, this results in a point for your opponent.</p>
-                <p>If you hit the ball in a rally or on a serve and it bounces back over the net after hitting your opponent’s side of the table (due to extreme spin), without your opponent touching it, that is your point.</p>
-                <p>What happens if the ball hits your finger or hand during a ping pong rally? If the ball touches your PADDLE hand and otherwise results in a legal hit, there is no rule violation and play shall continue as normal. Your paddle hand includes all fingers and hand area below the wrist. But what if the ball touches a player’s body anywhere else during a ping pong rally? You may not touch the ball with your non-paddle hand for any reason. It will result in a point for your opponent.</p>
-                <p>You may touch the ball or the table with your paddle hand (after reaching in to return a short serve, for example), or other parts of your body. NOTE: If the table moves at all from your touching it during a rally, that is your opponent’s point.</p>
-                <p>An otherwise legal serve or hit may contact the top edge of the horizontal table top surface and be counted as valid, even if it bounces sidewise. The vertical sides of the table are NOT part of the legal playing surface.</p>
-                <p>If no referee is present during a match and the players disagree on a certain call, the “honor system” applies and the players should find a way to agree, or play the point over. Ping pong carries a tradition of fierce but fair play. Help us keep it that way!</p>
-            </div>
-        </div>
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        container.className = "unity-mobile";
+        canvas.className = "unity-mobile";
 
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
 
-        <div class="content-item">
-            <div class="content-image" id="Section_Health">
-                <img src="Image/benefits-of-playing-tabletennis.png" alt="HealthBenefits">
-                <!--Credit: https://www.99sportz.com/benefits-of-playing-table-tennis/-->
-                <h3>Health & Benefits</h3>
-            </div>
-            <div class="description" id="di3">
-                <h4>Improving hand-eye coordination</h4>
-                <p>An intense game of table tennis stimulates mental alertness and concentration and develops mental acuity.</p>
-        
-                <h4>Improving reflexes</h4>
-                <p>Due to the fast-paced, short-distance nature of the sport, both gross and fine muscle movements are improved.</p>
-        
-                <h4>It’s easy on the joints</h4>
-                <p>Table tennis is the perfect choice for people who had knee surgery, history of back problems, or simply those who are tired of twisting their ankles while playing some other sports.</p>
-        
-                <h4>It burns calories</h4>
-                <p>Hate going to the gym? Try table tennis instead. It's a fun &amp; easy way to burn calories.</p>
-        
-                <h4>It’s a social sport</h4>
-                <p>Social interaction is very important for mental health. In a world so connected through technology, people are feeling more and more disconnected from each other. Table tennis offers you a chance to #UnPlugNPlay, step away from the screen, and bond with the person on the other side of the ping pong table.</p>
-        
-                <h4>It keeps your brain sharp</h4>
-                <p>Renowned physician, psychiatrist and brain imaging expert, Dr Daniel Amen, calls table tennis “the world's best brain sport” because it is highly aerobic, uses both the upper and lower body, and is great for eye hand coordination and reflexes. Table tennis also utilizes many different areas of the brain simultaneously as you are tracking the ball, planning shots and strategies, and figuring out spins.</p>
-        
-                <h4>Table tennis is utilized as a treatment for dementia</h4>
-                <p>Five years ago, the Sport and Art Educational Foundation started a table tennis therapy program, which was designed for seniors with early stage Alzheimer's and various forms of dementia. Because table tennis activates various areas of the brain simultaneously, players can stimulate their overall state of awareness.</p>
-        
-                <h4>It improves balance</h4>
-                <p>Staying balanced and being able to quickly change direction is key to being a good table tennis player. The more you play, the more you can improve your sense of balance.</p>
-        
-                <h4>Table tennis helps you build strength, speed, and agility without risking serious injury</h4>
-                <p>There a millions of serious sports-related injuries every year in the United States, but with table tennis you can get all the health benefits of an Olympic sport without risking injury. Convinced that table tennis is awesome? It’s time to grab a paddle and #UnPlugNPlay!</p>
-            </div>
-        </div>
+        unityShowBanner('WebGL builds are not supported on mobile devices.');
+      } else {
+        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-        <!--QR CODE TO WEBSITE-->
-        <div class="content-item">
-            <div class="content-image" id="QRCODE">
-                <img src="Image/frame.png" alt="QR Code" id="qr-code">
-                <h3>QR TO WEBSITE</h3>
-            </div>
-        </div>
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+      }
 
-    </div> <!--CONTENT END-->
+      loadingBar.style.display = "block";
 
-    <!--Link all references used-->
-    <div class="references">
-        <h2>Sources and References</h2>
-        <ul>
-            <li>
-                <a href="https://in.pinterest.com/pin/premium-vector--780530179169331783/">Table Tennis Logo</a>
-            </li>
-            <li>
-                <a href="https://www.freeiconspng.com/images/menu-icon">Menu Icon</a>
-            </li>
-            <li>
-                <a href="https://www.99sportz.com/ping-pong-history/">History of Table Tennis</a>
-            </li>
-            <li>
-                <a href="https://www.rookieroad.com/table-tennis/what-are-the-rules/">Rules of Table Tennis</a>
-            </li>
-            <li>
-                <a href="https://www.99sportz.com/benefits-of-playing-table-tennis/">Health &amp; Benefits</a>
-            </li>
-        </ul>
-    </div>
-    <!--Connect javascript-->
-    <script src="script.js" defer></script>
-</body>
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          loadingBar.style.display = "none";
+          fullscreenButton.onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+  </body>
 </html>
